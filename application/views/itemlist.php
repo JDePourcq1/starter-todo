@@ -1,5 +1,4 @@
-<h3>itemlist</h3>
-
+{pagination}
 <table class="table">
         <tr>
                 <th>Id</th>
