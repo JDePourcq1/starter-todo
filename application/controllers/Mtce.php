@@ -66,11 +66,89 @@ private function pagenav($num) {
     return $this->parser->parse('itemnav',$parms,true);
 }
 
-        
-        
-  
+public function add()
+{
+    $task = $this->tasks->create();
+    $this->session->set_userdata('task', $task);
+    $this->showit();
+}
+
+public function edit($id = null)
+{
+    if ($id == null)
+        redirect('/mtce');
+    $task = $this->tasks->get($id);
+    $this->session->set_userdata('task', $task);
+    $this->showit();
+}
+
+private function showit()
+{
+    $task = $this->session->userdata('task');
+    $this->data['id'] = $task->id;
+    foreach ($this->priorities->all() as $record)
+    {
+        $priparms[$record->id] = $record->name;
+    }
+    $fields = array(
+        'ftask' => makeTextField('Task description', 'task', $task->task, 'Work', "What needs to be done?"),
+        'fpriority' => makeComboBox('Priority', 'priority', $task->priority, $priparms, "How important is this task?"),
+        'zsubmit' => makeSubmitButton('Update the TODO task', "Click on home or <back> if you don't want to change anything!", 'btn-success'),
+    );
+    $this->data = array_merge($this->data, $fields);
+
+    $this->data['pagebody'] = 'itemedit';
+    $this->render();
+}
+
+public function submit()
+{
+    // setup for validation
+    $this->load->library('form_validation');
+    $this->form_validation->set_rules($this->tasks->rules());
+
+    // retrieve & update data transfer buffer
+    $task = (array) $this->session->userdata('task');
+    $task = array_merge($task, $this->input->post());
+    $task = (object) $task;  // convert back to object
+    $this->session->set_userdata('task', (object) $task);
+
+    // validate away
+    if ($this->form_validation->run())
+    {
+        if (empty($task->id))
+        {
+            $this->tasks->add($task);
+            //$this->alert('Task ' . $task->id . ' added', 'success');
+            //alert was giving PHP error
+        } else
+        {
+            $this->tasks->update($task);
+            //$this->alert('Task ' . $task->id . ' updated', 'success');
+            //alert was giving PHP error
+        }
+    } else
+    {
+        //$this->alert('<strong>Validation errors!<strong><br>' . validation_errors(), 'danger');
+        //alert was giving PHP error
+    }
+    $this->showit();
+    redirect('mtce');
+}
+
+function cancel() {
+    $this->session->unset_userdata('task');
+    redirect('/mtce');
+}
+
+function delete()
+{
+    $dto = $this->session->userdata('task');
+    $task = $this->tasks->get($dto->id);
+    $this->tasks->delete($task->id);
+    $this->session->unset_userdata('task');
+    redirect('/mtce');
+}
 
 
-        
-        
 }
