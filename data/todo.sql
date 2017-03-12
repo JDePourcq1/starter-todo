@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.3
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Feb 14, 2017 at 08:40 AM
--- Server version: 5.7.13
--- PHP Version: 7.0.8
+-- Host: 127.0.0.1
+-- Generation Time: Mar 13, 2017 at 12:41 AM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,36 @@ SET time_zone = "+00:00";
 --
 -- Database: `todo`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ci_sessions`
+--
+
+DROP TABLE IF EXISTS `ci_sessions`;
+CREATE TABLE `ci_sessions` (
+  `id` varchar(128) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `data` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ci_sessions`
+--
+
+INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
+('30khu85n3estee9oolfpa5iqvnthol3a', '127.0.0.1', 1489096626, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438393039363632323b),
+('cjset85qcofsr6unrnntoamg1atqve9d', '127.0.0.1', 1489345484, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438393334353436353b75736572726f6c657c733a353a224f776e6572223b),
+('e4fdfrupblh0if71ut5ar7cdrptsmq60', '127.0.0.1', 1489098317, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438393039383330373b),
+('fkbaf2tnfa419iqb1rcqdcr7s0836bnu', '127.0.0.1', 1489361016, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438393336303936363b75736572726f6c657c733a353a224f776e6572223b7461736b7c4f3a383a22737464436c617373223a383a7b733a323a226964223b733a313a2231223b733a343a227461736b223b733a31393a22434f4d50313233342061737369676e6d656e74223b733a383a227072696f72697479223b733a313a2233223b733a343a2273697a65223b733a313a2232223b733a353a2267726f7570223b733a313a2232223b733a383a22646561646c696e65223b733a383a223230313730323139223b733a363a22737461747573223b733a313a2231223b733a343a22666c6167223b733a303a22223b7d),
+('hgelk4karqvspl7vn7dkmphebme3op7c', '127.0.0.1', 1489099534, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438393039393438343b),
+('hnea92vfickjq4gtuahjk30kbbrhshke', '127.0.0.1', 1489100366, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438393130303132303b75736572726f6c657c733a353a224775657374223b),
+('n7pqoq68b0cnls2r77d9qce8lrrlfbm1', '127.0.0.1', 1489098307, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438393039383330373b),
+('spfhudno8tfa4ibo1841cnfu0bjr2khe', '127.0.0.1', 1489101125, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438393130303931303b75736572726f6c657c733a353a224f776e6572223b),
+('uoc3jclnpg18238usv9cnr7plc72djjk', '127.0.0.1', 1489345465, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438393334353436343b),
+('vo0mr7cs0nbs1fmbo4lktolr7vg1hi58', '127.0.0.1', 1489100512, 0x5f5f63695f6c6173745f726567656e65726174657c693a313438393130303437393b75736572726f6c657c733a353a224f776e6572223b);
 
 -- --------------------------------------------------------
 
@@ -152,7 +182,7 @@ INSERT INTO `tasks` (`id`, `task`, `priority`, `size`, `group`, `deadline`, `sta
 (4, 'Paint the fence', 1, 2, 1, '', '', ''),
 (5, 'Study for midterms', 3, 3, 2, '', '', ''),
 (6, 'Intramural hockey game', 1, 2, 4, '', '', ''),
-(7, 'Canucks hockey game', 3, 3, 4, '20170305', '', ''),
+(7, 'Canucks hockey game', 3, 3, 4, '20170305', '2', ''),
 (8, 'Buy steel-toed boots', 2, 1, 3, '', '', ''),
 (9, 'Learn French', 1, 3, 3, '20161231', '1', ''),
 (10, 'Hit the gym', 2, 1, 4, '', '', ''),
@@ -165,6 +195,13 @@ INSERT INTO `tasks` (`id`, `task`, `priority`, `size`, `group`, `deadline`, `sta
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `ci_sessions`
+--
+ALTER TABLE `ci_sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ci_sessions_timestamp` (`timestamp`);
 
 --
 -- Indexes for table `flags`
