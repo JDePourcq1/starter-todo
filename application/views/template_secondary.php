@@ -2,8 +2,6 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<h1>{pagetitle}</h1>
-                {alerts}    <!-- ADD this line -->
         <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" type="text/css" href="/assets/css/default.css"/>
@@ -18,6 +16,7 @@
             </div>           
             <div id="content">
                 <h1>{pagetitle}</h1>
+                {alerts}    <!-- ADD this line -->
                 <div class="row">
                     <div class="col-lg-6 col-md-12">
                         {leftside}
